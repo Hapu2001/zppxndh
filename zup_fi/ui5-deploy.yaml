@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "3.1"
+metadata:
+  name: zupfi
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: TTK_S4HC_DEV
+          url: https://my411894-api.s4hana.cloud.sap
+        app:
+          name: ZUP_FI
+          package: ZPK_UPLOAD_FIDOC
+          transport: J4AK900017
+        exclude:
+          - /test/

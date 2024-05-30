@@ -1,0 +1,143 @@
+<mvc:View
+    id="idMainView"
+    controllerName="zupfi.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    xmlns:m="sap.m"
+    xmlns:sap.ui.fl="sap.ui.fl"
+    xmlns:sap.ui.dt="sap.ui.dt"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:vm="sap.ui.fl.variants"
+    xmlns:u="sap.ui.unified"
+    xmlns="sap.ui.table"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:f="sap.f">
+    <m:Page
+        id="page"
+        title="{i18n>title}">
+        <f:DynamicPage
+            id="dynamicPageId"
+            toggleHeaderOnTitleClick="false">
+            <!-- DynamicPage Title -->
+            <!-- DynamicPage Header -->
+            <f:header>
+                <f:DynamicPageHeader  id="idDynamicPageHeader" pinnable="false">
+                    <m:FlexBox
+                        id="idFlexBox"
+                        renderType="Bare"
+                        alignItems="Center"
+                        justifyContent="End">
+                        <m:Button press="openUploadFragment" text="Choose file" class="sapUiSmallMarginEnd"/>
+                        <m:Button press="onDowloadTemplate" text="Download template" class="sapUiSmallMarginEnd"/>
+                        <m:Button press="checkData" text="Check" class="sapUiSmallMarginEnd"/>
+                        <m:Button press="postData" text="Post" class="sapUiSmallMarginEnd"/>
+                    </m:FlexBox>
+                </f:DynamicPageHeader>
+            </f:header>
+            <!-- DynamicPage Content -->
+            <f:content>
+            <m:VBox id="idVBox">
+                <core:Fragment fragmentName="zupfi.controller.fragment.Busy" type="XML" />
+                    <Table
+                        id="idMainTable"
+                        sort="onSort"
+                        columnMove="onColumnMove"
+                        ariaLabelledBy="title"
+                        rowMode="Interactive"
+                        sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex"
+                        rows="{/items}">
+                        <extension>
+                            <m:OverflowToolbar id="OverflowToolbar">
+                                <m:Title
+                                    id="title"
+                                    text="document"/>
+                                <m:ToolbarSeparator id="idToolbarSeparator"/>
+                                <vm:VariantManagement id="idVariant" for="idMainTable" />
+                                <m:ToolbarSpacer id="idToolbarSpacer"/>
+                                <m:Button id="btnSetting"
+                                        icon="sap-icon://action-settings"
+                                        press="openSetting"/>
+                            </m:OverflowToolbar>
+                        </extension>
+                        <dependents>
+                            <columnmenu:Menu id="menu">
+                                <columnmenu:items>
+                                    <columnmenu:ActionItem icon="sap-icon://sort" label="Sort" press="onColumnHeaderItemPress"/>
+                                    <columnmenu:ActionItem icon="sap-icon://table-column" label="Columns" press="onColumnHeaderItemPress"/>
+                                </columnmenu:items>
+                            </columnmenu:Menu>
+                        </dependents>
+                        <noData>
+                            <m:IllustratedMessage
+                                enableVerticalResponsiveness="true"/>
+                        </noData>
+                        <columns>
+                            <Column id="id_doc" width='5rem' headerMenu="menu"><m:Label text="ID" /><template><m:Text text="{id_doc}" /></template></Column>
+                            <Column id="accountingdocument" width='10rem' headerMenu="menu" visible="{accountingdocument_visible}"><m:Label text="Accounting document" /><template><m:Text text="{accountingdocument}" /></template></Column>
+                            <Column id="documentdate" width='10rem' headerMenu="menu"><m:Label text="Document date" /><template>    <m:Text text="{documentdate}" /></template></Column>
+                            <Column id="postingdate" width='10rem' headerMenu="menu" ><m:Label text="Posting date" /><template>    <m:Text text="{postingdate}" /></template></Column>
+                            <Column id="documenttype" width='10rem' headerMenu="menu"><m:Label text="Document Type" /><template>    <m:Text text="{documenttype}" /></template></Column>
+                            <Column id="companycode" width='10rem' headerMenu="menu"><m:Label text="Company code" /><template>    <m:Text text="{companycode}" /></template></Column>
+                            <Column id="currency" width='10rem' visible="false" headerMenu="menu"><m:Label text="Currency" /><template><m:Text text="{currency}" /></template></Column>
+                            <Column id="exchangerate" width='20rem' visible="false" headerMenu="menu"><m:Label text="Exchange Rate" /><template><m:Text text="{exchangerate}" /></template></Column>
+                            <Column id="headertext" visible="false" headerMenu="menu"><m:Label text="Header text" /><template><m:Text text="{headertext}" /></template></Column>
+                            <Column id="referencedoc" visible="false" headerMenu="menu"><m:Label text="Reference Document" /><template><m:Text text="{referencedoc}" /></template></Column>
+                            <Column id="headerref1" visible="false" headerMenu="menu"><m:Label text="Header Refernce 1" /><template><m:Text text="{headerref1}" /></template></Column>
+                            <Column id="postingkey" visible="false" headerMenu="menu"><m:Label text="Posting Key" /><template><m:Text text="{postingkey}" /></template></Column>
+                            <Column id="account"  width='20rem' headerMenu="menu"><m:Label text="Account" /><template><m:Text text="{account}" /></template></Column>
+                            <Column id="mainassetnumber" visible="false" headerMenu="menu"><m:Label text="Main Asset Number" /><template><m:Text text="{mainassetnumber}" /></template></Column>
+                            <Column id="subassetnumber" visible="false" headerMenu="menu"><m:Label text="Sub Asset Number" /><template><m:Text text="{subassetnumber}" /></template></Column>
+                            <Column id="specialglaccount" visible="false" headerMenu="menu"><m:Label text="Special GL Account" /><template><m:Text text="{specialglaccount}" /></template></Column>
+                            <Column id="assettransactiontype" visible="false" headerMenu="menu"><m:Label text="Asset Trans Type" /><template><m:Text text="{assettransactiontype}" /></template></Column>
+                            <Column id="amountindoumentcurrency" width='20rem'  headerMenu="menu"><m:Label text="Amount in Doc Cur" /><template><m:Text text="{amountindoumentcurrency}" /></template></Column>
+                            <Column id="amountinlocalcurrency" width='20rem'  headerMenu="menu"><m:Label text="Amount in Local Cur" /><template><m:Text text="{amountinlocalcurrency}" /></template></Column>
+                            <Column id="taxbaseamount" visible="false" headerMenu="menu"><m:Label text="Tax Base Amount" /><template><m:Text text="{taxbaseamount}" /></template></Column>
+                            <Column id="assignment" visible="false" headerMenu="menu"><m:Label text="Assignment" /><template><m:Text text="{assignment}" /></template></Column>
+                            <Column id="businessarea" width='20rem'  headerMenu="menu"><m:Label text="Business Area" /><template><m:Text text="{businessarea}" /></template></Column>
+                            <Column id="costcenter"  width='20rem' headerMenu="menu"><m:Label text="Cost center" /><template><m:Text text="{costcenter}" /></template></Column>
+                            <Column id="profitcenter" width='20rem' headerMenu="menu"><m:Label text="Profit Center" /><template><m:Text text="{profitcenter}" /></template></Column>
+                            <Column id="internalorder" visible="false" headerMenu="menu"><m:Label text="Internal Order" /><template><m:Text text="{internalorder}" /></template></Column>
+                            <Column id="assetvaluedate" visible="false" headerMenu="menu"><m:Label text="Asset Value Date" /><template><m:Text text="{assetvaluedate}" /></template></Column>
+                            <Column id="itemtext" visible="false" headerMenu="menu"><m:Label text="Item Text" /><template><m:Text text="{itemtext}" /></template></Column>
+                            <Column id="overrideglaccount" visible="false" headerMenu="menu"><m:Label text="Override GL Account" /><template><m:Text text="{overrideglaccount}" /></template></Column>
+                            <Column id="taxcode" width='7rem'  headerMenu="menu"><m:Label text="Tax Code" /><template><m:Text text="{taxcode}" /></template></Column>
+                            <Column id="segment" visible="false" headerMenu="menu"><m:Label text="Segment" /><template><m:Text text="{segment}" /></template></Column>
+                            <Column id="paymentterm" visible="false" headerMenu="menu"><m:Label text="Payment Term" /><template><m:Text text="{paymentterm}" /></template></Column>
+                            <Column id="paymentblock" visible="false" headerMenu="menu"><m:Label text="Payment Block" /><template><m:Text text="{paymentblock}" /></template></Column>
+                            <Column id="paymentmethod" visible="false" headerMenu="menu"><m:Label text="Payment Method" /><template><m:Text text="{paymentmethod}" /></template></Column>
+                            <Column id="baselinedate" visible="false" headerMenu="menu"><m:Label text="Baseline date" /><template><m:Text text="{baselinedate}" /></template></Column>
+                            <Column id="valuedate" visible="false" headerMenu="menu"><m:Label text="Value Date" /><template><m:Text text="{valuedate}" /></template></Column>
+                            <Column id="contractnumber" visible="false" headerMenu="menu"><m:Label text="Contract Number" /><template><m:Text text="{contractnumber}" /></template></Column>
+                            <Column id="contracttype" visible="false" headerMenu="menu"><m:Label text="Contract Type" /><template><m:Text text="{contracttype}" /></template></Column>
+                            <Column id="housebank" visible="false" headerMenu="menu"><m:Label text="House Bank No" /><template><m:Text text="{housebank}" /></template></Column>
+                            <Column id="bankaccountid" visible="false" headerMenu="menu"><m:Label text="Bank Account ID" /><template><m:Text text="{bankaccountid}" /></template></Column>
+                            <Column id="invoicerefnum" visible="false" headerMenu="menu"><m:Label text="Invoice Reference No" /><template><m:Text text="{invoicerefnum}" /></template></Column>
+                            <Column id="invoicereffiscalyear" visible="false" headerMenu="menu"><m:Label text="Invoice Reference Fiscal Year" /><template><m:Text text="{invoicereffiscalyear}" /></template></Column>
+                            <Column id="invoicereflineitem" visible="false" headerMenu="menu"><m:Label text="Invoice Reference Line Item" /><template><m:Text text="{invoicereflineitem}" /></template></Column>
+                            <Column id="purchasingorder" visible="false" headerMenu="menu"><m:Label text="Purchase Order" /><template><m:Text text="{purchasingorder}" /></template></Column>
+                            <Column id="purchasingitem" visible="false" headerMenu="menu"><m:Label text="Purchase Line Item" /><template><m:Text text="{purchasingitem}" /></template></Column>
+                            <Column id="saleorder" visible="false" headerMenu="menu"><m:Label text="Sale Order" /><template><m:Text text="{saleorder}" /></template></Column>
+                            <Column id="saleorderitem" visible="false" headerMenu="menu"><m:Label text="Sale Order Item" /><template><m:Text text="{saleorderitem}" /></template></Column>
+                            <Column id="negativeposting" width='10rem' visible="false" headerMenu="menu"><m:Label text="Negative Posting" /><template>    <m:Text text="{negativeposting}" /></template></Column>
+                            <Column id="alternativepayee" width='1rem' visible="false" headerMenu="menu"><m:Label text="Alternative Payee" /><template>    <m:Text text="{alternativepayee}" /></template></Column>
+                            <Column id="mst" width='10rem' visible="false" headerMenu="menu"><m:Label text="Mã số thuế"/><template>    <m:Text text="{mst}" /></template></Column>
+                            <Column id="name1" width='10rem' visible="false" headerMenu="menu"><m:Label text="Name 1"/><template>    <m:Text text="{name1}" /></template></Column>
+                            <Column id="name2" width='10rem' visible="false" headerMenu="menu"><m:Label text="Name 2"/><template>    <m:Text text="{name2}" /></template></Column>
+                            <Column id="city" width='10rem' visible="false" headerMenu="menu"><m:Label text="Tỉnh của mã vãng lai"/><template>    <m:Text text="{city}" /></template></Column>
+                            <Column id="country" width='10rem' visible="false" headerMenu="menu"><m:Label text="Quốc gia của mã vãng lai"/><template>    <m:Text text="{country}" /></template></Column>
+                            <Column id="tennccxuathd" width='10rem' visible="false" headerMenu="menu"><m:Label text="Tên NCC xuất hoá đơn"/><template>    <m:Text text="{tennccxuathd}" /></template></Column>
+                            <Column id="mstnccxuathd" width='10rem' visible="false" headerMenu="menu"><m:Label text="MST NCC xuất hoá đơn"/><template>    <m:Text text="{mstnccxuathd}" /></template></Column>
+                            <Column id="vatregno" width='10rem' visible="false" headerMenu="menu"><m:Label text="VAT Reg. No."/><template>    <m:Text text="{vatregno}" /></template></Column>
+                            <Column id="customer" width='10rem' visible="false" headerMenu="menu"><m:Label text="Customer COPA"/><template>    <m:Text text="{customer}" /></template></Column>
+                            <Column id="ref1" width='10rem' visible="false" headerMenu="menu"><m:Label text="Reference 1"/><template>    <m:Text text="{ref1}" /></template></Column>
+                            <Column id="ref2" width='10rem' visible="false" headerMenu="menu"><m:Label text="Reference 2"/><template>    <m:Text text="{ref2}" /></template></Column>
+                            <Column id="ref3" width='10rem' visible="false" headerMenu="menu"><m:Label text="Reference 3"/><template>    <m:Text text="{ref3}" /></template></Column>
+                        </columns>
+                    </Table>                            
+            </m:VBox>
+
+            </f:content>
+        </f:DynamicPage>
+    </m:Page>
+</mvc:View>
